@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="395.0" prefWidth="342.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.AddProductController">
+   <children>
+      <Label layoutX="100.0" layoutY="42.0" text="Add Product">
+         <font>
+            <Font name="Arial Black" size="21.0" />
+         </font>
+      </Label>
+      <TextField fx:id="productNameField" layoutX="95.0" layoutY="115.0" />
+      <TextField fx:id="barcodeNumberField" layoutX="95.0" layoutY="155.0" />
+      <Label layoutX="100.0" layoutY="100.0" text="Name">
+         <font>
+            <Font name="Arial Black" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="100.0" layoutY="140.0" text="Barcode Number">
+         <font>
+            <Font name="Arial Black" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="100.0" layoutY="220.0" text="Stock">
+         <font>
+            <Font name="Arial Black" size="12.0" />
+         </font>
+      </Label>
+      <Button layoutX="95.0" layoutY="315.0" mnemonicParsing="false" onAction="#addNewCashierButtonClicked" prefHeight="25.0" prefWidth="150.0" text="Add Product" />
+      <TextField fx:id="stockField" layoutX="95.0" layoutY="235.0" />
+      <TextField fx:id="productPriceField" layoutX="95.0" layoutY="195.0" />
+      <Label layoutX="100.0" layoutY="180.0" text="Price @">
+         <font>
+            <Font name="Arial Black" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="100.0" layoutY="260.0" text="Store Location">
+         <font>
+            <Font name="Arial Black" size="12.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="storeCombo" layoutX="96.0" layoutY="275.0" prefWidth="150.0" />
+   </children>
+</AnchorPane>
