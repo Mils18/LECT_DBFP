@@ -41,6 +41,11 @@ public class NewTransactionController implements Initializable {
 //        refresh();
     }
 
+    public void passData(String username, String role){
+        this.username = username;
+        this.role = role;
+    }
+
     @FXML
     public void refresh(){
         cashierList.clear();
@@ -128,19 +133,39 @@ public class NewTransactionController implements Initializable {
     public void homeButtonClicked(ActionEvent event) throws IOException {
         System.out.println("HOME Btn Clicked");
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("AdminHomePage.fxml"));
+
+        String fxml;
+        String title;
+
+        System.out.println(role);
+
+        if (role.equals("Cashier")){
+            fxml = "CashierHomePage.fxml";
+            title = "Cashier Home Page";
+        } else{
+            fxml = "AdminHomePage.fxml";
+            title = "Admin Home Page";
+        }
+
+
+        loader.setLocation(getClass().getResource(fxml));
         Parent AdminHomePageParent = loader.load();
         Stage stage = new Stage();
 
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.close();
 
-        AdminHomeController controller =loader.getController();
-        controller.passData(username,role);
+        if (role.equals("Cashier")) {
+            CashierHomeController controller = loader.getController();
+            controller.passData(username, role);
+        }else{
+            AdminHomeController controller =loader.getController();
+            controller.passData(username, role);
+        }
 
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setResizable(false);
-        stage.setTitle("Admin Home Page");
+        stage.setTitle(title);
         stage.setScene(new Scene(AdminHomePageParent));
         stage.show();
     }

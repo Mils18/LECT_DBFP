@@ -54,6 +54,9 @@ public class CashierHomeController implements Initializable {
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.close();
 
+        NewTransactionController controller =loader.getController();
+        controller.passData(username,role);
+
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setResizable(false);
         stage.setTitle("CheckOutPage");
