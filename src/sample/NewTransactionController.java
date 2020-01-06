@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -23,23 +24,45 @@ public class NewTransactionController implements Initializable {
 
     String username;
     String role;
+    private int currentBillNumber;
 
-    @FXML private TableView<Cashier> inventoryTable;
-    @FXML private TableColumn<Cashier, String> productIDInvenCol;
-    @FXML private TableColumn<Cashier, String> productNameInvenCol;
-    @FXML private TableColumn<Cashier, String> priceInvenCol;
+    @FXML private TableView<Product> inventoryTable;
+    @FXML private TableColumn<Product, String> productIDInvenCol;
+    @FXML private TableColumn<Product, String> productNameInvenCol;
+    @FXML private TableColumn<Product, String> priceInvenCol;
 
-    ObservableList<Product> inventoryList = FXCollections.observableArrayList();
+    @FXML private ComboBox<Integer> qtyCombo;
+
+    @FXML private TableView<ItemTransaction> cartTable;
+    @FXML private TableColumn<ItemTransaction, String> productIDCartCol;
+    @FXML private TableColumn<ItemTransaction, String> productNameCartCol;
+    @FXML private TableColumn<ItemTransaction, String> priceCartCol;
+    @FXML private TableColumn<ItemTransaction, String> qtyCartCol;
+    @FXML private TableColumn<ItemTransaction, String> subtotalCartCol;
+
+    private ObservableList<Product> inventoryList = FXCollections.observableArrayList();
+    private ObservableList<ItemTransaction> cartList = FXCollections.observableArrayList();
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        productIDCol.setCellValueFactory(new PropertyValueFactory<>("productID"));
-        productNameCol.setCellValueFactory(new PropertyValueFactory<>("productName"));
-        priceCol.setCellValueFactory(new PropertyValueFactory<>("productPrice"));
-        stockCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
-        storeLocationCol.setCellValueFactory(new PropertyValueFactory<>("productLocation"));
-        barcodeNumberCol.setCellValueFactory(new PropertyValueFactory<>("barcodeNumber"));
+//        System.out.println(Database.getBillNumber());
+        currentBillNumber = Database.getBillNumber();
+        productIDInvenCol.setCellValueFactory(new PropertyValueFactory<>("productID"));
+        productNameInvenCol.setCellValueFactory(new PropertyValueFactory<>("productName"));
+        priceInvenCol.setCellValueFactory(new PropertyValueFactory<>("productPrice"));
+
+//        -----------------------------------------------------------------------------------
+        qtyCombo.setItems(FXCollections.observableArrayList(1,2,3,4,5));
+        qtyCombo.setValue(1);
+//        -----------------------------------------------------------------------------------
+
+        productIDCartCol.setCellValueFactory(new PropertyValueFactory<>("productID"));
+        productNameCartCol.setCellValueFactory(new PropertyValueFactory<>("productName"));
+        priceCartCol.setCellValueFactory(new PropertyValueFactory<>("productPrice"));
+        qtyCartCol.setCellValueFactory(new PropertyValueFactory<>("productPrice"));
+        subtotalCartCol.setCellValueFactory(new PropertyValueFactory<>("subtotal"));
+
         refresh();
     }
 
@@ -50,37 +73,43 @@ public class NewTransactionController implements Initializable {
 
     @FXML
     public void refresh(){
-        cashierList.clear();
-        cashierList.addAll(Database.getAllCashier());
-        cashierTable.setItems(cashierList);
+        inventoryList.clear();
+        inventoryList.addAll(Database.getAllProducts());
+        inventoryTable.setItems(inventoryList);
+
+        cartList.clear();
+        cartList.addAll(Database.getAllItemTransactionCurrBill(currentBillNumber));
+        cartTable.setItems(cartList);
 
     }
     //
     @FXML
     public void addItemButtonClicked(){
-        System.out.print("addItemButtonClicked");
-//        try {
-//            FXMLLoader loader = new FXMLLoader();
-//            loader.setLocation(getClass().getResource("NewCashierPage.fxml"));
-//            Parent NewCashierParent = loader.load();
-//
-//            Stage stage = new Stage(); // New stage (window)
-//
-//            NewCashierController controller = loader.getController();
-//            controller.passData(this);
-//
-//            // Setting the stage up
-//            stage.initModality(Modality.APPLICATION_MODAL);
-//            stage.setResizable(false);
-//            stage.setTitle("New Cashier");
-//            stage.setScene(new Scene(NewCashierParent));
-//            stage.showAndWait();
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        System.out.println("addItemButtonClicked");
+        try {
+            Product selected = inventoryTable.getSelectionModel().getSelectedItem();
+//            Database.deleteCashier(selected.getCashierID());
+            System.out.println("ID"+selected.getProductID());
+            System.out.println("Name"+selected.getProductName());
+            System.out.println("Price"+selected.getProductPrice());
+
+
+//            INI NANTI HARUS DIGANTI
+            int billID = currentBillNumber;
+            int productID = selected.getProductID();
+            String productName = selected.getProductName();
+            int productPrice = selected.getProductPrice();
+            int qty = qtyCombo.getValue();
+            int subtotal = productPrice * qty;
+            Database.addItemTransaction(billID, productID, productName, productPrice, qty, subtotal);
+//            addToCartTable(selected.getProductID(),selected.getProductName(),selected.getProductPrice());
+            refresh();
+
+        } catch (NullPointerException e){
+            System.out.println("no selection");
+        }
     }
-    //
+
     @FXML
     public void deleteItemButtonClicked(){
         System.out.println("deleteItemButtonClicked");

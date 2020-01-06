@@ -12,8 +12,8 @@ public class Bill {
         this.billID = billID;
         this.transactionTime = transactionTime;
         this.cashierName = cashierName;
-        StoreName = storeName;
-        PaymentType = paymentType;
+        this.StoreName = storeName;
+        this.PaymentType = paymentType;
     }
 
     public int getBillID() {

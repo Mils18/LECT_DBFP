@@ -12,7 +12,7 @@ public class Database {
     static Statement stmt;
     static ResultSet rs;
 
-    public static Connection connect(){
+    public static Connection connect() {
         try {
             Class.forName(JDBC_DRIVER);
             return DriverManager.getConnection(DB_URL, USER, PASS);
@@ -22,7 +22,7 @@ public class Database {
         }
     }
 
-    public static boolean executeSQL(String sql){
+    public static boolean executeSQL(String sql) {
         try {
             conn = connect();
             stmt = conn.createStatement();
@@ -36,9 +36,9 @@ public class Database {
     }
 
 
-//    login function
-    public static int login(String username, String password){
-        if(!username.isEmpty() && !password.isEmpty()) {
+    //    login function
+    public static int login(String username, String password) {
+        if (!username.isEmpty() && !password.isEmpty()) {
             String sql = "SELECT * FROM cashier WHERE cashierName = '%s' AND password = '%s'";
 
             try {
@@ -47,9 +47,9 @@ public class Database {
                 rs = conn.createStatement().executeQuery(sql);
 
                 if (rs.next()) {
-                    if(rs.getInt("admin") == 0){
+                    if (rs.getInt("admin") == 0) {
                         return 1;
-                    } else if(rs.getInt("admin") == 1){
+                    } else if (rs.getInt("admin") == 1) {
                         return 2;
                     }
 
@@ -60,14 +60,14 @@ public class Database {
                 e.printStackTrace();
                 return 0;
             }
-        } else{
+        } else {
             return 0;
         }
         return 0;
     }
 
-//    bill related functions
-    public static void newBill(int cashierID, int storeID, int paymentTypeID){
+    //    bill related functions
+    public static void newBill(int cashierID, int storeID, int paymentTypeID) {
 
         String sql = "INSERT INTO bill (cashierID, storeID, paymentTypeID) values ('%d', '%d', '%d')";
 
@@ -83,7 +83,7 @@ public class Database {
 
     }
 
-    public static void updateBill(int billID, int cashierID, int storeID, int paymentTypeID){
+    public static void updateBill(int billID, int cashierID, int storeID, int paymentTypeID) {
 
         String sql = "UPDATE bill set cashierID = '%d', storeID = '%d', paymentTypeID = '%d' where billID = '%d'";
         sql = String.format(sql, cashierID, storeID, paymentTypeID, billID);
@@ -92,11 +92,11 @@ public class Database {
 
     }
 
-    public static ActualBill getABill(int billID){
+    public static ActualBill getABill(int billID) {
         String sql = "SELECT * FROM bill WHERE billID = " + billID;
         ActualBill bill;
 
-        try{
+        try {
             conn = connect();
             rs = conn.createStatement().executeQuery(sql);
 
@@ -114,15 +114,15 @@ public class Database {
 
     }
 
-    public static ResultSet selectAllBill(String startDate, String endDate){
+    public static ResultSet selectAllBill(String startDate, String endDate) {
 
         String sql = "SELECT b.billID, b.transactionTime, c.cashierName, s.storeName, p.paymentName FROM bill b " +
                 "INNER JOIN cashier c on b.cashierID = c.cashierID " +
                 "INNER JOIN store s on b.storeID = s.StoreID " +
                 "INNER JOIN paymenttype p ON b.paymentTypeID = p.paymentTypeID " +
-                "WHERE b.transactionTime BETWEEN \'" + startDate + "\' and \'" + endDate +"\'";
+                "WHERE b.transactionTime BETWEEN \'" + startDate + "\' and \'" + endDate + "\'";
 
-        try{
+        try {
             conn = connect();
             rs = conn.createStatement().executeQuery(sql);
 
@@ -135,15 +135,15 @@ public class Database {
 
     }
 
-    public static ResultSet selectBillFromStore(String startDate, String endDate, String storeName){
+    public static ResultSet selectBillFromStore(String startDate, String endDate, String storeName) {
 
         String sql = "SELECT b.billID, b.transactionTime, c.cashierName, s.storeName, p.paymentName FROM bill b " +
                 "INNER JOIN cashier c on b.cashierID = c.cashierID " +
                 "INNER JOIN store s on b.storeID = s.StoreID " +
                 "INNER JOIN paymenttype p ON b.paymentTypeID = p.paymentTypeID " +
-                "WHERE b.transactionTime BETWEEN \'" + startDate + "\' and \'" + endDate +"\' AND s.StoreName = \'" + storeName + "\'";
+                "WHERE b.transactionTime BETWEEN \'" + startDate + "\' and \'" + endDate + "\' AND s.StoreName = \'" + storeName + "\'";
 
-        try{
+        try {
             conn = connect();
             rs = conn.createStatement().executeQuery(sql);
 
@@ -155,13 +155,106 @@ public class Database {
         return rs;
     }
 
-    public static void deleteBill(int billID){
+    public static void deleteBill(int billID) {
         String sql = "DELETE FROM bill WHERE billID = '%d'";
         sql = String.format(sql, billID);
 
         executeSQL(sql);
 
     }
+
+    public static int getBillNumber() {
+        String sql = " SELECT COUNT(*) AS total FROM bill ";
+
+        try {
+            conn = connect();
+            rs = conn.createStatement().executeQuery(sql);
+            rs.next();
+            return rs.getInt("total");
+
+//            return records;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//            return null;
+//        }
+//        String sql = " SELECT COUNT(*) FROM bill ";
+//        sql = String.format(sql);
+
+//        try {
+//            conn = connect();
+//            rs = conn.createStatement().executeQuery(sql);
+//
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//            return null;
+//        }
+//
+//        return rs;
+        //Registering the Driver
+//        DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+        //Getting the connection
+//        String mysqlUrl = "jdbc:mysql://localhost/mydatabase";
+//        Connection con = DriverManager.getConnection(sql, "root", "password");
+////        Connection con = connect();
+//
+//        System.out.println("Connection established......");
+//        //Creating the Statement object
+//        Statement stmt = con.createStatement();
+//        //Query to get the number of rows in a table
+//        String query = "select count(*) from Cricketers_Data";
+//        //Executing the query
+//        ResultSet rs = stmt.executeQuery(query);
+//        //Retrieving the result
+//        rs.next();
+//        int count = rs.getInt(1);
+//        System.out.println("Number of records in the cricketers_data table: "+count);
+//    }
+
+//        try {
+//             This will load the MySQL driver, each DB has its own driver
+//            Class.forName("com.mysql.jdbc.Driver");
+//             Setup the connection with the DB
+//            connect = DriverManager.getConnection("jdbc:mysql://localhost/testdb?"
+//                    + "user=root&password=");
+//
+//             Statements allow to issue SQL queries to the database
+//            statement = connect.createStatement();
+//            resultSet = statement.executeQuery("select count(*) from testdb.emg");
+//
+//            while (resultSet.next()) {
+//                return resultSet.getInt(1);
+//            }
+//        } catch (Exception e) {
+////        }
+////
+//        String sql = "SELECT COUNT(*) AS total FROM bill";
+//////        sql = String.format(sql, billID);
+//        conn = connect();
+//        Statement stmt3 = con.createStatement();
+//        ResultSet rs3 = stmt3.executeQuery("SELECT COUNT(*) AS count FROM "+bill+" ;");
+//        int count = rs3.getInt("count");
+//        rs3.getInt("total")
+////        int numberOfBill = executeSQL(sql);
+//        try{
+////            conn = connect();
+////            statement = connect.createStatement();
+////            resultSet = statement.executeQuery("select count(*) from testdb.emg");
+//
+//            rs = conn.createStatement().executeQuery(sql);
+////            return rs;
+//
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//            return null;
+//        }
+//    }
+
 
 //    itemTransaction related functions
     public static void newItemTransaction(int billID, int productID, int qty){
@@ -337,6 +430,31 @@ public class Database {
         executeSQL(sql);
 
     }
+//  Item Transaction related function
+    public static void addItemTransaction(int billID, int productID, String productName, int productPrice, int qty, int subtotal){
+
+        String sql = "INSERT INTO itemTransaction (billID, productID, productName, productPrice, qty, subtotal) VALUES ('%d','%d','%s','%d','%d','%d')";
+        sql = String.format(sql, billID, productID, productName, productPrice, qty, subtotal);
+
+        executeSQL(sql);
+
+    }
+    public static ArrayList<ItemTransaction> getAllItemTransactionCurrBill(int currBillID){
+        ArrayList<ItemTransaction> ItemTransactionList = new ArrayList<>();
+        try {
+            conn = connect();
+            String sql = "SELECT * From itemtransaction WHERE billID = "+currBillID;
+            ResultSet rs = conn.createStatement().executeQuery(sql);
+            while (rs.next()){
+                ItemTransactionList.add(new ItemTransaction(rs.getInt("itemID"),rs.getInt("billID"),rs.getInt("productID"),
+                        rs.getString("productName"),rs.getInt("productPrice"), rs.getInt("qty"), rs.getInt("subtotal")));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ItemTransactionList;
+    }
+
 //    payment related functions
 
     public static ArrayList<String> getPaymentMethods(){
