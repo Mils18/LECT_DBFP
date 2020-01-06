@@ -281,17 +281,39 @@ public class Database {
     }
 
 //    product related function
+//    public static ArrayList<Product> getAllProducts(){
+//        ArrayList<Product> productList = new ArrayList<>();
+//        try {
+//            conn = connect();
+//            String sql = "SELECT * From products";
+//            ResultSet rs = conn.createStatement().executeQuery(sql);
+//
+//            while (rs.next()){
+//                productList.add(new Product(rs.getInt("productID"), rs.getString("productLocation"),
+//                        rs.getString("productName"), rs.getString("barcodeNumber"),
+//                        rs.getInt("productPrice"), rs.getInt("stock")));
+//            }
+////            while (rs.next()){
+////                productList.add(new Product(rs.getInt("productID"), rs.getString("productName"),
+////                        rs.getInt("productPrice")));
+////            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        return productList;
+//    }
+
+    //    product related function
     public static ArrayList<Product> getAllProducts(){
         ArrayList<Product> productList = new ArrayList<>();
         try {
             conn = connect();
-            String sql = "SELECT productID, productLocation, productName, barcodeNumber, productPrice, stock From products";
+            String sql = "SELECT * From products";
             ResultSet rs = conn.createStatement().executeQuery(sql);
-
             while (rs.next()){
-                productList.add(new Product(rs.getInt("productID"), rs.getString("productLocation"),
-                        rs.getString("productName"), rs.getString("barcodeNumber"),
-                        rs.getInt("productPrice"), rs.getInt("stock")));
+                productList.add(new Product(rs.getInt("productID"),
+                        rs.getString("productName"), rs.getInt("productPrice"), rs.getInt("stock"),
+                        rs.getString("productLocation"),rs.getString("barcodeNumber")));
             }
         } catch (SQLException e) {
             e.printStackTrace();

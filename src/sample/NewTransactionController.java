@@ -11,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -23,22 +24,23 @@ public class NewTransactionController implements Initializable {
     String username;
     String role;
 
-    @FXML private TableView<Cashier> cashierTable;
-    @FXML private TableColumn<Cashier, Integer> cashierIDCol;
-    @FXML private TableColumn<Cashier, String> cashierNameCol;
-    @FXML private TableColumn<Cashier, String> cashierPassCol;
-    @FXML private TableColumn<Cashier, String> adminStatusCol;
-    ObservableList<Cashier> cashierList = FXCollections.observableArrayList();
+    @FXML private TableView<Cashier> inventoryTable;
+    @FXML private TableColumn<Cashier, String> productIDInvenCol;
+    @FXML private TableColumn<Cashier, String> productNameInvenCol;
+    @FXML private TableColumn<Cashier, String> priceInvenCol;
+
+    ObservableList<Product> inventoryList = FXCollections.observableArrayList();
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-//        cashierIDCol.setCellValueFactory(new PropertyValueFactory<>("cashierID"));
-//        cashierNameCol.setCellValueFactory(new PropertyValueFactory<>("cashierName"));
-//        cashierPassCol.setCellValueFactory(new PropertyValueFactory<>("cashierPass"));
-//        adminStatusCol.setCellValueFactory(new PropertyValueFactory<>("adminStatus"));
-
-//        refresh();
+        productIDCol.setCellValueFactory(new PropertyValueFactory<>("productID"));
+        productNameCol.setCellValueFactory(new PropertyValueFactory<>("productName"));
+        priceCol.setCellValueFactory(new PropertyValueFactory<>("productPrice"));
+        stockCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        storeLocationCol.setCellValueFactory(new PropertyValueFactory<>("productLocation"));
+        barcodeNumberCol.setCellValueFactory(new PropertyValueFactory<>("barcodeNumber"));
+        refresh();
     }
 
     @FXML

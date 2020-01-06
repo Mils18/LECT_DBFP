@@ -12,11 +12,12 @@
    <children>
       <TableView fx:id="productTableView" layoutX="38.0" layoutY="124.0" prefHeight="335.0" prefWidth="608.0">
         <columns>
-          <TableColumn fx:id="productIDCol" prefWidth="124.0" text="Product ID" />
-          <TableColumn fx:id="productNameCol" prefWidth="165.0" text="Product Name" />
-            <TableColumn fx:id="priceCol" prefWidth="86.0" text="Price" />
-            <TableColumn fx:id="stockCol" prefWidth="82.0" text="Stock" />
-            <TableColumn fx:id="storeLocationCol" prefWidth="149.0" text="Store Location" />
+          <TableColumn fx:id="productIDCol" prefWidth="87.0" text="Product ID" />
+          <TableColumn fx:id="productNameCol" prefWidth="161.0" text="Product Name" />
+            <TableColumn fx:id="priceCol" prefWidth="93.0" text="Price" />
+            <TableColumn fx:id="stockCol" prefWidth="57.0" text="Stock" />
+            <TableColumn fx:id="storeLocationCol" prefWidth="90.0" text="Location" />
+            <TableColumn fx:id="barcodeNumberCol" prefWidth="119.0" text="barcodeNumber" />
         </columns>
       </TableView>
       <Button layoutX="49.0" layoutY="548.0" mnemonicParsing="false" onAction="#refreshItemList" prefHeight="25.0" prefWidth="150.0" text="Filter" />
