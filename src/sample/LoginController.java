@@ -79,7 +79,9 @@ public class LoginController implements Initializable {
             stage.show();
 
         } else{
-            System.out.println("Login Failed");
+
+            System.out.println(Database.login(username, password));
+            System.out.println("Username or password is incorrect");
         }
 
     }

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Database {
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    static final String DB_URL = "jdbc:mysql://localhost/FoodHallDB";
+    static final String DB_URL = "jdbc:mysql://localhost/gatdb";
     static final String USER = "root";
     static final String PASS = "";
     static Connection conn;

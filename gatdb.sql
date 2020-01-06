@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 30, 2019 at 03:02 PM
+-- Generation Time: Jan 06, 2020 at 07:54 AM
 -- Server version: 10.1.39-MariaDB
--- PHP Version: 7.3.5
+-- PHP Version: 7.1.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `foodhalldb`
+-- Database: `gatdb`
 --
 
 -- --------------------------------------------------------
@@ -42,9 +42,8 @@ CREATE TABLE `bill` (
 
 INSERT INTO `bill` (`billID`, `transactionTime`, `cashierID`, `storeID`, `paymentTypeID`) VALUES
 (1, '2019-12-28 14:09:13', 1, 3, 4),
-(2, '2019-12-28 14:09:13', 1, 2, 1),
 (3, '2019-12-28 14:50:42', 3, 5, 1),
-(4, '2019-12-28 15:05:23', 1, 1, 5);
+(4, '2019-12-28 15:05:23', 2, 1, 3);
 
 -- --------------------------------------------------------
 
@@ -68,7 +67,10 @@ INSERT INTO `cashier` (`cashierID`, `cashierName`, `password`, `admin`) VALUES
 (2, 'John', 'joh123', 0),
 (3, 'Dan', 'dan123', 0),
 (4, 'Fatimah', 'fat123', 1),
-(5, 'Suresep', '123', 1);
+(5, 'Suresep', '123', 1),
+(10, 'aa', 'aa123', 1),
+(12, 'cc', 'cc123', 0),
+(13, 'JasonFlyBy', 'jas123', 0);
 
 -- --------------------------------------------------------
 
@@ -82,17 +84,6 @@ CREATE TABLE `itemtransaction` (
   `productID` int(10) UNSIGNED NOT NULL,
   `qty` int(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `itemtransaction`
---
-
-INSERT INTO `itemtransaction` (`transactionID`, `billID`, `productID`, `qty`) VALUES
-(1, 1, 5, 1),
-(2, 1, 3, 1),
-(3, 2, 2, 1),
-(4, 2, 3, 1),
-(5, 3, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -123,22 +114,21 @@ INSERT INTO `paymenttype` (`paymentTypeID`, `paymentName`) VALUES
 --
 
 CREATE TABLE `products` (
-  `productID` int(10) UNSIGNED NOT NULL,
+  `productID` int(11) UNSIGNED NOT NULL,
+  `productLocation` varchar(30) NOT NULL,
   `productName` varchar(30) NOT NULL,
-  `productPrice` int(10) NOT NULL
+  `barcodeNumber` varchar(30) NOT NULL,
+  `productPrice` int(10) NOT NULL,
+  `stock` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`productID`, `productName`, `productPrice`) VALUES
-(1, 'Paket 1', 26000),
-(2, 'Paket 2', 30000),
-(3, 'Paket 3', 34000),
-(4, 'Fried Fishcake 3x', 15000),
-(5, 'Fried Fishcake 1x', 5000),
-(6, 'Shrimp Nugget', 15000);
+INSERT INTO `products` (`productID`, `productLocation`, `productName`, `barcodeNumber`, `productPrice`, `stock`) VALUES
+(8, '2 Food Hall Grand Indonesia', 'a', 'a', 20000, 10),
+(9, '2 Food Hall Grand Indonesia', 'aaas', '1231', 15000, 100);
 
 -- --------------------------------------------------------
 
@@ -216,19 +206,19 @@ ALTER TABLE `store`
 -- AUTO_INCREMENT for table `bill`
 --
 ALTER TABLE `bill`
-  MODIFY `billID` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `billID` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `cashier`
 --
 ALTER TABLE `cashier`
-  MODIFY `cashierID` int(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `cashierID` int(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `itemtransaction`
 --
 ALTER TABLE `itemtransaction`
-  MODIFY `transactionID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `transactionID` int(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `paymenttype`
@@ -240,7 +230,7 @@ ALTER TABLE `paymenttype`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `productID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `productID` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `store`
