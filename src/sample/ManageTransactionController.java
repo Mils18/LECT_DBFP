@@ -206,9 +206,6 @@ public class ManageTransactionController implements Initializable {
     public void passData(String username, String role){
         this.username = username;
         this.role = role;
-        System.out.println("U "+this.username);
-        System.out.println("R "+this.role);
-
     }
 
 }

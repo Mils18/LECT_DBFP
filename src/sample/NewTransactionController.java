@@ -19,7 +19,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.ResourceBundle;
 
 public class NewTransactionController implements Initializable {
@@ -45,13 +44,15 @@ public class NewTransactionController implements Initializable {
     private ObservableList<Product> inventoryList = FXCollections.observableArrayList();
     private ObservableList<ItemTransaction> cartList = FXCollections.observableArrayList();
 
-    private Date date = new Date(); // this object contains the current date value
+//    private Date date = new Date(); // this object controains the current date value
     private SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        Database.addInitBill();
 //        System.out.println(Database.getBillNumber());
         currentBillNumber = Database.getBillNumber();
+        System.out.println(currentBillNumber+currentBillNumber);
         productIDInvenCol.setCellValueFactory(new PropertyValueFactory<>("productID"));
         productNameInvenCol.setCellValueFactory(new PropertyValueFactory<>("productName"));
         priceInvenCol.setCellValueFactory(new PropertyValueFactory<>("productPrice"));
@@ -97,7 +98,6 @@ public class NewTransactionController implements Initializable {
             System.out.println("Price"+selected.getProductPrice());
 
 
-//            INI NANTI HARUS DIGANTI
             int billID = currentBillNumber;
             int productID = selected.getProductID();
             String productName = selected.getProductName();
@@ -157,6 +157,7 @@ public class NewTransactionController implements Initializable {
 
     public void homeButtonClicked(ActionEvent event) throws IOException {
         System.out.println("HOME Btn Clicked");
+        Database.deleteBill(currentBillNumber);
         FXMLLoader loader = new FXMLLoader();
 
         String fxml;

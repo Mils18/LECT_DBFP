@@ -67,16 +67,16 @@ public class Database {
     }
 
     //    bill related functions
-    public static void addBill(int cashierID, int storeID, int paymentTypeID) {
-        String sql = "INSERT INTO bill (cashierID, storeID, paymentTypeID) values ('%d', '%d', '%d')";
-        System.out.println("cashierID"+cashierID);
-        System.out.println("storeID"+storeID);
-        System.out.println("paymentTypeID"+paymentTypeID);
+    public static void addInitBill() {
+        String sql = "INSERT INTO bill (cashierID, storeID, paymentTypeID) values (NULL,NULL,NULL)";
+//        System.out.println("cashierID"+cashierID);
+//        System.out.println("storeID"+storeID);
+//        System.out.println("paymentTypeID"+paymentTypeID);
         try {
             conn = connect();
             stmt = conn.createStatement();
 
-            sql = String.format(sql, cashierID, storeID, paymentTypeID);
+//            sql = String.format(sql,NULL,);
             stmt.execute(sql);
             conn.close();
         } catch (SQLException e) {
@@ -84,6 +84,24 @@ public class Database {
         }
 
     }
+
+//    public static void addBill(int cashierID, int storeID, int paymentTypeID) {
+//        String sql = "INSERT INTO bill (cashierID, storeID, paymentTypeID) values ('%d', '%d', '%d')";
+//        System.out.println("cashierID"+cashierID);
+//        System.out.println("storeID"+storeID);
+//        System.out.println("paymentTypeID"+paymentTypeID);
+//        try {
+//            conn = connect();
+//            stmt = conn.createStatement();
+//
+//            sql = String.format(sql, cashierID, storeID, paymentTypeID);
+//            stmt.execute(sql);
+//            conn.close();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+
+//    }
 
     public static void updateBill(int billID, int cashierID, int storeID, int paymentTypeID) {
 
@@ -166,7 +184,8 @@ public class Database {
     }
 
     public static int getBillNumber() {
-        String sql = " SELECT COUNT(*) AS total FROM bill ";
+//        String sql = " SELECT COUNT(*) AS total FROM bill ";
+        String sql = " SELECT MAX(billID) AS total FROM bill  ";
 
         try {
             conn = connect();
@@ -348,29 +367,6 @@ public static int getPaymentID(String paymentName){
         executeSQL(sql);
 
     }
-
-//    product related function
-//    public static ArrayList<Product> getAllProducts(){
-//        ArrayList<Product> productList = new ArrayList<>();
-//        try {
-//            conn = connect();
-//            String sql = "SELECT * From products";
-//            ResultSet rs = conn.createStatement().executeQuery(sql);
-//
-//            while (rs.next()){
-//                productList.add(new Product(rs.getInt("productID"), rs.getString("productLocation"),
-//                        rs.getString("productName"), rs.getString("barcodeNumber"),
-//                        rs.getInt("productPrice"), rs.getInt("stock")));
-//            }
-////            while (rs.next()){
-////                productList.add(new Product(rs.getInt("productID"), rs.getString("productName"),
-////                        rs.getInt("productPrice")));
-////            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return productList;
-//    }
 
     //    product related function
     public static ArrayList<Product> getAllProducts(){

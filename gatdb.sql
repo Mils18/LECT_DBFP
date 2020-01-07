@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 06, 2020 at 07:54 AM
+-- Generation Time: Jan 07, 2020 at 03:39 PM
 -- Server version: 10.1.39-MariaDB
 -- PHP Version: 7.1.29
 
@@ -43,7 +43,8 @@ CREATE TABLE `bill` (
 INSERT INTO `bill` (`billID`, `transactionTime`, `cashierID`, `storeID`, `paymentTypeID`) VALUES
 (1, '2019-12-28 14:09:13', 1, 3, 4),
 (3, '2019-12-28 14:50:42', 3, 5, 1),
-(4, '2019-12-28 15:05:23', 2, 1, 3);
+(4, '2019-12-28 15:05:23', 2, 1, 3),
+(6, '2020-01-07 13:19:08', 4, 2, 3);
 
 -- --------------------------------------------------------
 
@@ -79,11 +80,34 @@ INSERT INTO `cashier` (`cashierID`, `cashierName`, `password`, `admin`) VALUES
 --
 
 CREATE TABLE `itemtransaction` (
-  `transactionID` int(20) NOT NULL,
+  `itemID` int(20) NOT NULL,
   `billID` int(20) UNSIGNED NOT NULL,
   `productID` int(10) UNSIGNED NOT NULL,
-  `qty` int(3) NOT NULL
+  `productName` varchar(30) NOT NULL,
+  `productPrice` int(11) NOT NULL,
+  `qty` int(3) NOT NULL,
+  `subtotal` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `itemtransaction`
+--
+
+INSERT INTO `itemtransaction` (`itemID`, `billID`, `productID`, `productName`, `productPrice`, `qty`, `subtotal`) VALUES
+(1, 1, 8, '', 0, 1, 0),
+(2, 1, 10, '', 0, 1, 0),
+(3, 1, 10, '', 0, 4, 0),
+(4, 1, 9, '', 0, 3, 0),
+(5, 1, 9, 'aaas', 15000, 1, 15000),
+(6, 1, 9, 'aaas', 15000, 3, 45000),
+(7, 1, 10, 'abc', 50000, 3, 150000),
+(8, 1, 8, 'a', 20000, 1, 20000),
+(10, 3, 10, 'abc', 50000, 1, 50000),
+(11, 3, 8, 'a', 20000, 1, 20000),
+(12, 4, 10, 'abc', 50000, 1, 50000),
+(13, 4, 9, 'aaas', 15000, 1, 15000),
+(15, 4, 10, 'abc', 50000, 1, 50000),
+(23, 4, 8, 'a', 20000, 1, 20000);
 
 -- --------------------------------------------------------
 
@@ -128,7 +152,8 @@ CREATE TABLE `products` (
 
 INSERT INTO `products` (`productID`, `productLocation`, `productName`, `barcodeNumber`, `productPrice`, `stock`) VALUES
 (8, '2 Food Hall Grand Indonesia', 'a', 'a', 20000, 10),
-(9, '2 Food Hall Grand Indonesia', 'aaas', '1231', 15000, 100);
+(9, '2 Food Hall Grand Indonesia', 'aaas', '1231', 15000, 100),
+(10, '4 Food Hall FX', 'abc', '1234', 50000, 10);
 
 -- --------------------------------------------------------
 
@@ -176,7 +201,7 @@ ALTER TABLE `cashier`
 -- Indexes for table `itemtransaction`
 --
 ALTER TABLE `itemtransaction`
-  ADD PRIMARY KEY (`transactionID`),
+  ADD PRIMARY KEY (`itemID`),
   ADD KEY `billID` (`billID`),
   ADD KEY `productID` (`productID`);
 
@@ -206,7 +231,7 @@ ALTER TABLE `store`
 -- AUTO_INCREMENT for table `bill`
 --
 ALTER TABLE `bill`
-  MODIFY `billID` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `billID` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `cashier`
@@ -218,7 +243,7 @@ ALTER TABLE `cashier`
 -- AUTO_INCREMENT for table `itemtransaction`
 --
 ALTER TABLE `itemtransaction`
-  MODIFY `transactionID` int(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `itemID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `paymenttype`
@@ -230,7 +255,7 @@ ALTER TABLE `paymenttype`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `productID` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `productID` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `store`
