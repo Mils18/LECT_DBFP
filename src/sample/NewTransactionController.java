@@ -18,6 +18,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class NewTransactionController implements Initializable {
@@ -43,6 +45,8 @@ public class NewTransactionController implements Initializable {
     private ObservableList<Product> inventoryList = FXCollections.observableArrayList();
     private ObservableList<ItemTransaction> cartList = FXCollections.observableArrayList();
 
+    private Date date = new Date(); // this object contains the current date value
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -88,7 +92,6 @@ public class NewTransactionController implements Initializable {
         System.out.println("addItemButtonClicked");
         try {
             Product selected = inventoryTable.getSelectionModel().getSelectedItem();
-//            Database.deleteCashier(selected.getCashierID());
             System.out.println("ID"+selected.getProductID());
             System.out.println("Name"+selected.getProductName());
             System.out.println("Price"+selected.getProductPrice());
@@ -102,7 +105,6 @@ public class NewTransactionController implements Initializable {
             int qty = qtyCombo.getValue();
             int subtotal = productPrice * qty;
             Database.addItemTransaction(billID, productID, productName, productPrice, qty, subtotal);
-//            addToCartTable(selected.getProductID(),selected.getProductName(),selected.getProductPrice());
             refresh();
 
         } catch (NullPointerException e){
@@ -112,53 +114,45 @@ public class NewTransactionController implements Initializable {
 
     @FXML
     public void deleteItemButtonClicked(){
-        System.out.println("deleteItemButtonClicked");
-//        try{
-//            FXMLLoader loader = new FXMLLoader();
-//            loader.setLocation(getClass().getResource("EditCashierPage.fxml"));
-//            Parent EditCashierParent = loader.load();
-//
-//            Stage stage = new Stage(); // New stage (window)
-//
-//            EditCashierController controller = loader.getController();
-//            controller.passData(this, cashierTable.getSelectionModel().getSelectedItem());
-//
-//            // Setting the stage up
-//            stage.initModality(Modality.APPLICATION_MODAL);
-//            stage.setResizable(false);
-//            stage.setTitle("Edit Cashier");
-//            stage.setScene(new Scene(EditCashierParent));
-//            stage.showAndWait();
-//        } catch (NullPointerException e){
-//            System.out.println("No selection");
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-    }
 
-    public void refreshItemList(){
-        System.out.println("refreshItemList");
+        try{
+            ItemTransaction selected = cartTable.getSelectionModel().getSelectedItem();
+            Database.deleteItemTransaction(selected.getItemID());
+            refresh();
+
+        } catch (NullPointerException e){
+            System.out.println("no selection");
+        }
     }
 
     @FXML
     public void checkOutButtonClicked(){
         System.out.println("checkOutButtonClicked");
-//        try{
-//            Cashier selected = cashierTable.getSelectionModel().getSelectedItem();
-//            Database.deleteCashier(selected.getCashierID());
-//            refresh();
-//
-//        } catch (NullPointerException e){
-//            System.out.println("no selection");
-//        }
-//    }
-//    @FXML
-//    public void passData(String username, String role){
-//        this.username = username;
-//        this.role = role;
-//        System.out.println("U "+this.username);
-//        System.out.println("R "+this.role);
+        int billID = currentBillNumber;
+//        String transactionTime =dateFormat.format(date);
+        int cashierID = 10;
 
+
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("CheckOutPage.fxml"));
+            Parent CheckOutParent = loader.load();
+
+            Stage stage = new Stage(); // New stage (window)
+
+            CheckOutController controller = loader.getController();
+            controller.passData(this, billID, cashierID);
+
+            // Setting the stage up
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setResizable(false);
+            stage.setTitle("Check Out");
+            stage.setScene(new Scene(CheckOutParent));
+            stage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void homeButtonClicked(ActionEvent event) throws IOException {

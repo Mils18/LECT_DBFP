@@ -8,25 +8,25 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="485.0" prefWidth="834.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.NewTransactionController">
+<AnchorPane prefHeight="602.0" prefWidth="835.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.NewTransactionController">
     <children>
         <Label layoutX="319.0" layoutY="38.0" text="New Transaction">
             <font>
                 <Font name="Arial Black" size="21.0" />
             </font>
         </Label>
-        <TableView fx:id="inventoryTable" layoutX="39.0" layoutY="78.0" prefHeight="178.0" prefWidth="336.0">
+        <TableView fx:id="inventoryTable" layoutX="39.0" layoutY="91.0" prefHeight="178.0" prefWidth="336.0">
             <columns>
                 <TableColumn fx:id="productIDInvenCol" prefWidth="98.0" text="Product ID" />
                 <TableColumn fx:id="productNameInvenCol" prefWidth="147.0" text="Product Name" />
                 <TableColumn fx:id="priceInvenCol" prefWidth="93.0" text="Price @" />
             </columns>
         </TableView>
-        <Button fx:id="addItemButton" layoutX="585.0" layoutY="103.0" mnemonicParsing="false" onAction="#addItemButtonClicked" prefHeight="56.0" prefWidth="160.0" text="Add Item" />
-        <Button fx:id="deleteItemButton" layoutX="585.0" layoutY="215.0" mnemonicParsing="false" onAction="#deleteItemButtonClicked" prefHeight="56.0" prefWidth="160.0" text="Delete Item" />
-        <Button layoutX="585.0" layoutY="331.0" mnemonicParsing="false" onAction="#checkOutButtonClicked" prefHeight="56.0" prefWidth="160.0" text="CheckOut" />
+        <Button fx:id="addItemButton" layoutX="608.0" layoutY="176.0" mnemonicParsing="false" onAction="#addItemButtonClicked" prefHeight="56.0" prefWidth="160.0" text="Add Item" />
+        <Button fx:id="deleteItemButton" layoutX="608.0" layoutY="288.0" mnemonicParsing="false" onAction="#deleteItemButtonClicked" prefHeight="56.0" prefWidth="160.0" text="Delete Item" />
+        <Button layoutX="608.0" layoutY="404.0" mnemonicParsing="false" onAction="#checkOutButtonClicked" prefHeight="56.0" prefWidth="160.0" text="CheckOut" />
       <Button layoutX="35.0" layoutY="36.0" mnemonicParsing="false" onAction="#homeButtonClicked" text="HOME" />
-      <TableView fx:id="cartTable" layoutX="39.0" layoutY="277.0" prefHeight="178.0" prefWidth="526.0">
+      <TableView fx:id="cartTable" layoutX="39.0" layoutY="298.0" prefHeight="260.0" prefWidth="526.0">
          <columns>
             <TableColumn fx:id="productIDCartCol" prefWidth="98.0" text="Product ID" />
             <TableColumn fx:id="productNameCartCol" prefWidth="147.0" text="Product Name" />
@@ -35,11 +35,21 @@
             <TableColumn fx:id="subtotalCartCol" prefWidth="137.0" text="Subtotal" />
          </columns>
       </TableView>
-      <Label layoutX="585.0" layoutY="61.0" text="Quantity">
+      <Label layoutX="608.0" layoutY="134.0" text="Quantity">
          <font>
             <Font name="Arial Black" size="12.0" />
          </font>
       </Label>
-      <ComboBox fx:id="qtyCombo" layoutX="585.0" layoutY="78.0" prefHeight="25.0" prefWidth="76.0" />
+      <ComboBox fx:id="qtyCombo" layoutX="608.0" layoutY="151.0" prefHeight="25.0" prefWidth="76.0" />
+      <Label layoutX="40.0" layoutY="75.0" text="Inventory">
+         <font>
+            <Font name="Arial Black" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="42.0" layoutY="280.0" text="Cart">
+         <font>
+            <Font name="Arial Black" size="12.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>

@@ -4,16 +4,16 @@ public class Bill {
 
     private int billID;
     private String transactionTime;
-    private String cashierName;
-    private String StoreName;
-    private String PaymentType;
+    private int cashierID;
+    private int storeID;
+    private int paymentTypeID;
 
-    public Bill(int billID, String transactionTime, String cashierName, String storeName, String paymentType) {
+    public Bill(int billID, String transactionTime, int cashierID, int storeID, int paymentTypeID) {
         this.billID = billID;
         this.transactionTime = transactionTime;
-        this.cashierName = cashierName;
-        this.StoreName = storeName;
-        this.PaymentType = paymentType;
+        this.cashierID = cashierID;
+        this.storeID = storeID;
+        this.paymentTypeID = paymentTypeID;
     }
 
     public int getBillID() {
@@ -32,27 +32,28 @@ public class Bill {
         this.transactionTime = transactionTime;
     }
 
-    public String getCashierName() {
-        return cashierName;
+
+    public int getCashierID() {
+        return cashierID;
     }
 
-    public void setCashierName(String cashierName) {
-        this.cashierName = cashierName;
+    public void setCashierID(int cashierID) {
+        this.cashierID = cashierID;
     }
 
-    public String getStoreName() {
-        return StoreName;
+    public int getStoreID() {
+        return storeID;
     }
 
-    public void setStoreName(String storeName) {
-        StoreName = storeName;
+    public void setStoreID(int storeID) {
+        this.storeID = storeID;
     }
 
-    public String getPaymentType() {
-        return PaymentType;
+    public int getPaymentTypeID() {
+        return paymentTypeID;
     }
 
-    public void setPaymentType(String paymentType) {
-        PaymentType = paymentType;
+    public void setPaymentTypeID(int paymentTypeID) {
+        this.paymentTypeID = paymentTypeID;
     }
 }

@@ -67,8 +67,8 @@ public class ManageTransactionController implements Initializable {
 
         try {
             while (rs.next()) {
-                BillList.add(new Bill(rs.getInt("billID"), rs.getString("transactionTime"), rs.getString("cashierName")
-                        , rs.getString("storeName"), rs.getString("paymentName")));
+                BillList.add(new Bill(rs.getInt("billID"), rs.getString("transactionTime"), rs.getInt("cashierID")
+                        , rs.getInt("storeID"), rs.getInt("paymentTypeID")));
             }
 
             rs.close();
