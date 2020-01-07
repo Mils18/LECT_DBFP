@@ -28,10 +28,10 @@ public class AdminHomeController implements Initializable {
     }
 
     public void manageItemsButtonClicked(ActionEvent event) throws IOException {
-        System.out.println("Manage Btn Clicked");
+        System.out.println("Manage Products Btn Clicked");
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("ManageProductsPage.fxml"));
-        Parent ManageItemsPageParent = loader.load();
+        Parent ManageProductPageParent = loader.load();
         Stage stage = new Stage();
 
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -42,8 +42,8 @@ public class AdminHomeController implements Initializable {
 
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setResizable(false);
-        stage.setTitle("Manage Items");
-        stage.setScene(new Scene(ManageItemsPageParent));
+        stage.setTitle("New Transaction");
+        stage.setScene(new Scene(ManageProductPageParent));
         stage.show();
     }
 
@@ -68,7 +68,7 @@ public class AdminHomeController implements Initializable {
         System.out.println("NewBill Btn Clicked");
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("NewTransactionPage.fxml"));
-        Parent LoginPageParent = loader.load();
+        Parent NewTransactionPageParent = loader.load();
         Stage stage = new Stage();
 
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -80,7 +80,7 @@ public class AdminHomeController implements Initializable {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setResizable(false);
         stage.setTitle("New Transaction");
-        stage.setScene(new Scene(LoginPageParent));
+        stage.setScene(new Scene(NewTransactionPageParent));
         stage.show();
     }
     public void manageTransactionButtonClicked(ActionEvent event) throws IOException {
@@ -127,6 +127,8 @@ public class AdminHomeController implements Initializable {
 
     @FXML
     public void passData(String username, String role){
+        System.out.println("username "+username);
+        System.out.println("role "+role);
         this.username = username;
         this.role = role;
         WelcomeLabel.setText("Welcome " + username);

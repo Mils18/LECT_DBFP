@@ -60,15 +60,12 @@ public class CheckOutController implements Initializable {
     }
 
     public void checkOutButtonClicked(ActionEvent event){
-
-
         int storeID =  Database.getStoreID(storeCombo.getValue());
         System.out.println("storeID"+storeID);
         int paymentTypeID = Database.getPaymentID(paymentTypeCombo.getValue());
         System.out.println("paymentTypeID"+paymentTypeID);
         Database.updateBill(billID, cashierID, storeID, paymentTypeID);
         parentController.refresh();
-
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.close();
 
