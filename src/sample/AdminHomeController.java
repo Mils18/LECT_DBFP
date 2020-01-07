@@ -37,6 +37,9 @@ public class AdminHomeController implements Initializable {
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.close();
 
+        ManageProductsController controller = loader.getController();
+        controller.passData(username, role);
+
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setResizable(false);
         stage.setTitle("Manage Items");
