@@ -50,6 +50,7 @@ public class NewTransactionController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Database.addInitBill();
+//        System.out.println(Database.getBillNumber());
         currentBillNumber = Database.getBillNumber();
         System.out.println(currentBillNumber+currentBillNumber);
         productIDInvenCol.setCellValueFactory(new PropertyValueFactory<>("productID"));
@@ -70,12 +71,9 @@ public class NewTransactionController implements Initializable {
         refresh();
     }
 
-    @FXML
     public void passData(String username, String role){
         this.username = username;
         this.role = role;
-        System.out.println("username "+username);
-        System.out.println("role "+role);
     }
 
     @FXML
@@ -159,15 +157,13 @@ public class NewTransactionController implements Initializable {
 
     public void homeButtonClicked(ActionEvent event) throws IOException {
         System.out.println("HOME Btn Clicked");
-        if (Database.checkLastBill() == 0){
-        System.out.println("deleteEmptyBill");
         Database.deleteBill(currentBillNumber);
-        }
-
         FXMLLoader loader = new FXMLLoader();
 
         String fxml;
         String title;
+
+        System.out.println(role);
 
         if (role.equals("Cashier")){
             fxml = "CashierHomePage.fxml";

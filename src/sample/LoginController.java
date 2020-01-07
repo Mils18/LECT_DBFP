@@ -70,7 +70,6 @@ public class LoginController implements Initializable {
 
             AdminHomeController controller =loader.getController();
             String role = "Admin";
-
             controller.passData(username,role);
 
             stage.initModality(Modality.APPLICATION_MODAL);

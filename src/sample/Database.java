@@ -82,8 +82,26 @@ public class Database {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
     }
 
+//    public static void addBill(int cashierID, int storeID, int paymentTypeID) {
+//        String sql = "INSERT INTO bill (cashierID, storeID, paymentTypeID) values ('%d', '%d', '%d')";
+//        System.out.println("cashierID"+cashierID);
+//        System.out.println("storeID"+storeID);
+//        System.out.println("paymentTypeID"+paymentTypeID);
+//        try {
+//            conn = connect();
+//            stmt = conn.createStatement();
+//
+//            sql = String.format(sql, cashierID, storeID, paymentTypeID);
+//            stmt.execute(sql);
+//            conn.close();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+
+//    }
 
     public static void updateBill(int billID, int cashierID, int storeID, int paymentTypeID) {
 
@@ -118,7 +136,7 @@ public class Database {
 
     public static ResultSet selectAllBill(String startDate, String endDate) {
 
-        String sql = "SELECT b.billID, b.transactionTime, c.cashierID, s.storeID, p.paymentTypeID FROM bill b " +
+        String sql = "SELECT b.billID, b.transactionTime, c.cashierName, s.storeName, p.paymentName FROM bill b " +
                 "INNER JOIN cashier c on b.cashierID = c.cashierID " +
                 "INNER JOIN store s on b.storeID = s.StoreID " +
                 "INNER JOIN paymenttype p ON b.paymentTypeID = p.paymentTypeID " +
@@ -182,22 +200,6 @@ public class Database {
         }
     }
 
-    public static int checkLastBill() {
-//        String sql = " SELECT COUNT(*) AS total FROM bill ";
-        String sql = " SELECT MAX(cashierID) AS value FROM bill  ";
-
-        try {
-            conn = connect();
-            rs = conn.createStatement().executeQuery(sql);
-            rs.next();
-            return rs.getInt("value");
-
-//            return records;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return 0;
-        }
-    }
 //    itemTransaction related functions
     public static void newItemTransaction(int billID, int productID, int qty){
 

@@ -75,9 +75,9 @@ public class ManageTransactionController implements Initializable {
 
             BillIDCol.setCellValueFactory(new PropertyValueFactory<>("billID"));
             TTCol.setCellValueFactory(new PropertyValueFactory<>("transactionTime"));
-            CashierNameCol.setCellValueFactory(new PropertyValueFactory<>("cashierID"));
-            StrNameCol.setCellValueFactory(new PropertyValueFactory<>("storeID"));
-            PMCol.setCellValueFactory(new PropertyValueFactory<>("paymentTypeID"));
+            CashierNameCol.setCellValueFactory(new PropertyValueFactory<>("cashierName"));
+            StrNameCol.setCellValueFactory(new PropertyValueFactory<>("storeName"));
+            PMCol.setCellValueFactory(new PropertyValueFactory<>("paymentType"));
             BillTable.setItems(BillList);
 
         } catch (SQLException e) {
@@ -206,8 +206,6 @@ public class ManageTransactionController implements Initializable {
     public void passData(String username, String role){
         this.username = username;
         this.role = role;
-        System.out.println("username "+username);
-        System.out.println("role "+role);
     }
 
 }
